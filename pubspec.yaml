@@ -34,6 +34,7 @@ dependencies:
   flutter_svg: ^1.0.3
   sizer: ^2.0.15
   rename: ^2.0.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
