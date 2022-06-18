@@ -87,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.blue,
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {},
+      // ),
       extendBody: true,
       body: _buildBody(),
     );
