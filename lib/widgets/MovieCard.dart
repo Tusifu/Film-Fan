@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ayumutekano/core/res/color.dart';
 
 class TaskGroupContainer extends StatelessWidget {
   final MaterialColor color;
@@ -22,15 +21,6 @@ class TaskGroupContainer extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: color[400],
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: color.withOpacity(0.4),
-        //     blurRadius: 10,
-        //     spreadRadius: 4,
-        //     offset: const Offset(2, 6),
-        //   )
-        // ],
-        // gradient: AppColors.getDarkLinearGradient(color),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

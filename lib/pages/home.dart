@@ -1,11 +1,12 @@
+import 'package:ayumutekano/models/ApiResponse.dart';
+import 'package:ayumutekano/models/Movie.dart';
+import 'package:ayumutekano/services/MovieService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ayumutekano/core/res/color.dart';
-import 'package:ayumutekano/core/routes/routes.dart';
-import 'package:ayumutekano/widgets/circle_gradient_icon.dart';
-import 'package:ayumutekano/widgets/task_group.dart';
+import 'package:ayumutekano/widgets/MovieCard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +17,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String todaysDate = DateFormat().add_yMMMMEEEEd().format(DateTime.now());
+  late MovieServices services;
+  late APIResponse<List<Movie>> _apiResponse;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getPlayingMovies();
+  }
+
+  getPlayingMovies() async {
+    setState(() {
+      _isLoading = true;
+    });
+    _apiResponse = await services.getPlayingMovies();
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
