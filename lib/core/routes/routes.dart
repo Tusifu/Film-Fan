@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:film_fan/pages/home.dart';
-import 'package:film_fan/pages/onboarding.dart';
 
 class Routes {
-  static const onBoarding = "/";
-  static const home = "/home";
+  static const home = "/";
 }
 
 class RouterGenerator {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.onBoarding:
-        return MaterialPageRoute(
-          builder: ((context) => const OnboardingScreen()),
-        );
       case Routes.home:
         return MaterialPageRoute(
           builder: ((context) => const HomeScreen()),

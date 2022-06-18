@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
-  final MaterialColor color;
   final bool? isSmall;
   final String movieName;
   final String movieRelease;
   final String poster;
   const MovieCard({
     Key? key,
-    required this.color,
     this.isSmall = false,
     required this.movieName,
     required this.movieRelease,
@@ -20,7 +18,7 @@ class MovieCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-          color: color[400],
+          color: Colors.grey[500],
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
               image: NetworkImage("https://image.tmdb.org/t/p/w500$poster"),
@@ -42,7 +40,7 @@ class MovieCard extends StatelessWidget {
             overflow: TextOverflow.fade,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -53,7 +51,7 @@ class MovieCard extends StatelessWidget {
             movieRelease,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 10,
               fontWeight: FontWeight.bold,
             ),
           ),

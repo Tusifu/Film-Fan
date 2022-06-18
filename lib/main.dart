@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        title: 'Umutekano Fees',
+        title: 'Film Fan',
         debugShowCheckedModeBanner: false,
         theme: AppColors.getTheme,
-        initialRoute: Routes.onBoarding,
+        initialRoute: Routes.home,
         onGenerateRoute: RouterGenerator.generateRoutes,
       );
     });
