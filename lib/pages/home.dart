@@ -141,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               isSmall: true,
               movieRelease: movie.release_date,
               movieName: movie.original_title,
+              voteAverage: movie.vote_average,
             ),
           ),
         ),

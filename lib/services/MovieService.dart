@@ -16,6 +16,11 @@ class MovieServices {
         for (var item in jsonData['results']) {
           movies.add(Movie.fromJson(item));
         }
+
+        //sorting movies by alphabetic order
+        movies.sort((a, b) => a.original_title
+            .toLowerCase()
+            .compareTo(b.original_title.toLowerCase()));
         return APIResponse<List<Movie>>(data: movies);
       } else {
         return APIResponse<List<Movie>>(
