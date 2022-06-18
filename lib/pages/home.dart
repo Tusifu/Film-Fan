@@ -1,12 +1,12 @@
-import 'package:ayumutekano/models/ApiResponse.dart';
-import 'package:ayumutekano/models/Movie.dart';
-import 'package:ayumutekano/services/MovieService.dart';
+import 'package:film_fan/models/ApiResponse.dart';
+import 'package:film_fan/models/Movie.dart';
+import 'package:film_fan/services/MovieService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-import 'package:ayumutekano/core/res/color.dart';
-import 'package:ayumutekano/widgets/MovieCard.dart';
+import 'package:film_fan/core/res/color.dart';
+import 'package:film_fan/widgets/MovieCard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String todaysDate = DateFormat().add_yMMMMEEEEd().format(DateTime.now());
-  late MovieServices services;
+  MovieServices services = new MovieServices();
   late APIResponse<List<Movie>> _apiResponse;
   bool _isLoading = false;
 
@@ -32,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _isLoading = true;
     });
     _apiResponse = await services.getPlayingMovies();
+
+    print(_apiResponse);
 
     setState(() {
       _isLoading = false;
@@ -182,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Umutekano Fees",
+          "Film Fan",
           style: TextStyle(
             color: Colors.blueGrey[900],
             fontWeight: FontWeight.w700,
@@ -208,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 2,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.green,
             isSmall: true,
             icon: Icons.track_changes,
@@ -219,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.outbond_outlined,
@@ -230,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.commit,
@@ -241,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.today,
@@ -252,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.date_range,
@@ -263,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 2,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.orange,
             isSmall: true,
             icon: Icons.house_outlined,
@@ -274,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.other_houses_outlined,
@@ -285,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: TaskGroupContainer(
+          child: MovieCard(
             color: Colors.blueGrey,
             isSmall: true,
             icon: Icons.hide_source_sharp,

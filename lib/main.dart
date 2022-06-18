@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:ayumutekano/core/res/color.dart';
-import 'package:ayumutekano/core/routes/routes.dart';
+import 'package:film_fan/core/res/color.dart';
+import 'package:film_fan/core/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());

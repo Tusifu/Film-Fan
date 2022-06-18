@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TaskGroupContainer extends StatelessWidget {
+class MovieCard extends StatelessWidget {
   final MaterialColor color;
   final bool? isSmall;
   final IconData icon;
   final String taskGroup;
   final String taskCount;
-  const TaskGroupContainer({
+  const MovieCard({
     Key? key,
     required this.color,
     this.isSmall = false,

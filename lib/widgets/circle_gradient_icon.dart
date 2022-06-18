@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ayumutekano/core/res/color.dart';
+import 'package:film_fan/core/res/color.dart';
 
 class CircleGradientIcon extends StatelessWidget {
   final VoidCallback onTap;

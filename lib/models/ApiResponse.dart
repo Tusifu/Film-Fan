@@ -1,4 +1,4 @@
-import 'package:ayumutekano/core/res/color.dart';
+import 'package:film_fan/core/res/color.dart';
 
 class APIResponse<T> {
   late T? data;

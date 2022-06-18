@@ -14,10 +14,10 @@ class Movie {
   late String original_language;
   late String title;
   late String backdrop_path;
-  late int popularity;
+  late num popularity;
   late int vote_count;
   late bool video;
-  late String vote_average;
+  late num vote_average;
 
   Movie({
     required this.poster_path,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ayumutekano/pages/home.dart';
-import 'package:ayumutekano/pages/onboarding.dart';
+import 'package:film_fan/pages/home.dart';
+import 'package:film_fan/pages/onboarding.dart';
 
 class Routes {
   static const onBoarding = "/";

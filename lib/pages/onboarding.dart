@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ayumutekano/core/res/app.dart';
-import 'package:ayumutekano/core/routes/routes.dart';
-import 'package:ayumutekano/widgets/circle_gradient_icon.dart';
+import 'package:film_fan/core/res/app.dart';
+import 'package:film_fan/core/routes/routes.dart';
+import 'package:film_fan/widgets/circle_gradient_icon.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            Colors.green[500]!.withOpacity(0.7),
+            Colors.blue[500]!.withOpacity(0.7),
             // Colors.blue[400]!.withOpacity(0.7),
             // Colors.blue[300]!.withOpacity(0.7),
           ],
@@ -184,7 +184,7 @@ class _BoardingWidget extends StatelessWidget {
             height: 30,
           ),
           Text(
-            "Umutekano Fees",
+            "FILM FAN",
             style: TextStyle(
               color: Colors.grey[800],
               fontSize: 32,
@@ -195,7 +195,7 @@ class _BoardingWidget extends StatelessWidget {
             height: 10,
           ),
           Text(
-            "Bika muburyo bworoshye ingo zishyura amafaranga y'umutekano, unamenye izishyura neza.",
+            "Film Fan is now in Kigali.",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey[500],

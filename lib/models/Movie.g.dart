@@ -17,10 +17,10 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       original_language: json['original_language'] as String,
       title: json['title'] as String,
       backdrop_path: json['backdrop_path'] as String,
-      popularity: json['popularity'] as int,
+      popularity: json['popularity'] as num,
       vote_count: json['vote_count'] as int,
       video: json['video'] as bool,
-      vote_average: json['vote_average'] as String,
+      vote_average: json['vote_average'] as num,
     );
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ayumutekano/models/ApiResponse.dart';
-import 'package:ayumutekano/models/Movie.dart';
+import 'package:film_fan/models/ApiResponse.dart';
+import 'package:film_fan/models/Movie.dart';
 import 'package:http/http.dart' as http;
 
 class MovieServices {
@@ -13,8 +13,8 @@ class MovieServices {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final movies = <Movie>[];
-
-        for (var item in jsonData) {
+        print(jsonData['results']);
+        for (var item in jsonData['results']) {
           movies.add(Movie.fromJson(item));
         }
         return APIResponse<List<Movie>>(data: movies);

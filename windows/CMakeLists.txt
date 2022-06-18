@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(ayumutekano LANGUAGES CXX)
+project(film_fan LANGUAGES CXX)
 
-set(BINARY_NAME "ayumutekano")
+set(BINARY_NAME "film_fan")
 
 cmake_policy(SET CMP0063 NEW)
 

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "ayumutekano" "\0"
+            VALUE "FileDescription", "film_fan" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "ayumutekano" "\0"
+            VALUE "InternalName", "film_fan" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "ayumutekano.exe" "\0"
-            VALUE "ProductName", "ayumutekano" "\0"
+            VALUE "OriginalFilename", "film_fan.exe" "\0"
+            VALUE "ProductName", "film_fan" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
