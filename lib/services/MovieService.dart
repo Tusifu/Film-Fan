@@ -13,7 +13,6 @@ class MovieServices {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final movies = <Movie>[];
-        print(jsonData['results']);
         for (var item in jsonData['results']) {
           movies.add(Movie.fromJson(item));
         }

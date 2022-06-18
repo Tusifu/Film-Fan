@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     _apiResponse = await services.getPlayingMovies();
 
-    print(_apiResponse);
+    // print(_apiResponse);
 
     setState(() {
       _isLoading = false;
@@ -43,58 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          todaysDate,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-        elevation: 0,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 20),
-        //     child: CircleGradientIcon(
-        //       onTap: () {
-        //         Navigator.pushNamed(context, Routes.todaysTask);
-        //       },
-        //       icon: Icons.calendar_month,
-        //       color: Colors.purple,
-        //       iconSize: 24,
-        //       size: 40,
-        //     ),
-        //   )
-        // ],
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: InkWell(
-              onTap: () {},
-              customBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const Icon(
-                Icons.menu_rounded,
-              ),
-            ),
-          ),
-        ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.blue,
-      //   child: const Icon(
-      //     Icons.add,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {},
-      // ),
       extendBody: true,
       body: _buildBody(),
     );
@@ -103,75 +51,38 @@ class _HomeScreenState extends State<HomeScreen> {
   Stack _buildBody() {
     return Stack(
       children: [
-        SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                _taskHeader(),
-                const SizedBox(
-                  height: 15,
-                ),
-                buildGrid(),
-                const SizedBox(
-                  height: 25,
-                ),
-                // _onGoingHeader(),
-                const SizedBox(
-                  height: 10,
-                ),
-                // const OnGoingTask(),
-                const SizedBox(
-                  height: 40,
-                ),
-              ],
-            ),
-          ),
-        )
-        //   Positioned(
-        //     bottom: 30,
-        //     // left: 100.w / 2 - (70 / 2),
-        //     right: 30,
-        //     child: CircleGradientIcon(
-        //       color: Colors.blue,
-        //       onTap: () {},
-        //       size: 60,
-        //       iconSize: 30,
-        //       icon: Icons.add,
-        //     ),
-        //   )
-      ],
-    );
-  }
-
-  Row _onGoingHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          "On Going",
-          style: TextStyle(
-            color: Colors.blueGrey[900],
-            fontWeight: FontWeight.w700,
-            fontSize: 22,
-          ),
-        ),
-        const Spacer(),
-        InkWell(
-          onTap: () {},
-          child: Text(
-            "See all",
-            style: TextStyle(
-              color: AppColors.primaryColor,
-              fontWeight: FontWeight.w500,
+        Padding(
+          padding: const EdgeInsets.only(top: 15.0),
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _taskHeader(),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  buildGrid(),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  // _onGoingHeader(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  // const OnGoingTask(),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
             ),
           ),
         )
@@ -186,17 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Text(
           "Film Fan",
           style: TextStyle(
-            color: Colors.blueGrey[900],
+            color: Colors.white,
             fontWeight: FontWeight.w700,
             fontSize: 24,
           ),
         ),
-        // IconButton(
-        //     onPressed: () {},
-        //     icon: Icon(
-        //       Icons.add_circle_outline,
-        //       color: Colors.blue[400],
-        //     ))
       ],
     );
   }
@@ -211,88 +116,77 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisCellCount: 2,
           mainAxisCellCount: 1,
           child: MovieCard(
-            color: Colors.green,
+            poster: '/jrgifaYeUtTnaH7NF5Drkgjg2MB.jpg',
+            color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.track_changes,
-            taskCount: "120,000 RWF",
-            taskGroup: "Intego",
+            movieRelease: "2022-04-06",
+            movieName: "Fantastic Beasts",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/neMZH82Stu91d3iqvLdNQfqPPyl.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.outbond_outlined,
-            taskCount: "70,000 RWF",
-            taskGroup: "Ayishyuwe",
+            movieRelease: "2022-03-24",
+            movieName: "The Lost City",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/6JjfSchsU6daXk2AKX8EEBjO3Fm.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.commit,
-            taskCount: "65,000 RWF",
-            taskGroup: "Ari Munzira",
+            movieRelease: "2022-04-06",
+            movieName: "Morbius",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/8Kce1utfytAG5m1PbtVoDzmDZJH.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.today,
-            taskCount: "18,000 RWF",
-            taskGroup: "Ayuyu Munsi",
+            movieRelease: "2022-06-23",
+            movieName: "A Day to Die",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/QaNLpq3Wuu2yp5ESsXYcQCOpUk.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.date_range,
-            taskCount: "20,000 RWF",
-            taskGroup: "Ayukwezi",
-          ),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 2,
-          mainAxisCellCount: 1,
-          child: MovieCard(
-            color: Colors.orange,
-            isSmall: true,
-            icon: Icons.house_outlined,
-            taskCount: "Ingo 25",
-            taskGroup: "Ingo zose",
+            movieRelease: "2022-04-28",
+            movieName: "Memory",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/zhLKlUaF1SEpO58ppHIAyENkwgw.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.other_houses_outlined,
-            taskCount: "Ingo 12",
-            taskGroup: "Ingo zishyura neza",
+            movieRelease: "2022-04-28",
+            movieName: "The Northman",
           ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
           child: MovieCard(
+            poster: '/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg',
             color: Colors.blueGrey,
             isSmall: true,
-            icon: Icons.hide_source_sharp,
-            taskCount: "Ingo 13",
-            taskGroup: "Ingo zishura nabi",
+            movieRelease: "2022-04-28",
+            movieName: "Jurassic World",
           ),
         ),
       ],
