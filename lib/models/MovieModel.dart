@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'MovieModel.g.dart';
+
+@JsonSerializable()
 class MovieModel {
   late String poster_path;
   late bool adult;
@@ -30,4 +35,7 @@ class MovieModel {
     required this.video,
     required this.vote_average,
   });
+
+  factory MovieModel.fromJson(Map<String, dynamic> item) =>
+      _$MovieModelFromJson(item);
 }
