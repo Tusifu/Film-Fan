@@ -43,6 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'FILM FAN',
+          maxLines: 1,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+          ),
+        ),
+      ),
       extendBody: true,
       body: Builder(builder: (context) {
         if (_isLoading) {
@@ -76,13 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _taskHeader(),
-                  const SizedBox(
-                    height: 15,
-                  ),
                   buildGrid(),
                   const SizedBox(
                     height: 25,
@@ -95,22 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         )
-      ],
-    );
-  }
-
-  Row _taskHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
-        Text(
-          "Film Fan",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-          ),
-        ),
       ],
     );
   }

@@ -47,6 +47,18 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'FILM FAN',
+          maxLines: 2,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+          ),
+        ),
+      ),
       extendBody: true,
       body: Builder(builder: (context) {
         if (_isLoading) {
@@ -75,14 +87,10 @@ class _DetailPageState extends State<DetailPage> {
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 15,
-                vertical: 10,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
                   buildMoviePoster(),
                   const SizedBox(
                     height: 20,
