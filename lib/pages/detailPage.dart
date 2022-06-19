@@ -22,7 +22,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   String todaysDate = DateFormat().add_yMMMMEEEEd().format(DateTime.now());
-  MovieServices services = new MovieServices();
+  MovieServices services = MovieServices();
   late APIResponse<MovieDetail> _apiResponse;
   late APIResponse<List<Movie>> _apiResponseSimilar;
   bool _isLoading = false;
@@ -173,13 +173,15 @@ class _DetailPageState extends State<DetailPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          _apiResponse.data!.title,
-          maxLines: 2,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 18,
+        Expanded(
+          child: Text(
+            _apiResponse.data!.title,
+            maxLines: 2,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+            ),
           ),
         ),
       ],
@@ -219,9 +221,9 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Text _detailBody() {
-    return const Text(
-      "Professor Albus Dumbledore knows the powerful, dark wizard Gellert Grindelwald is moving to seize control of the wizarding world. Unable to stop him alone, he entrusts magizoologist Newt Scamander to lead an intrepid team of wizards and witches. They soon encounter an array of old and new beasts as they clash with Grindelwald's growing legion of followers.",
-      style: TextStyle(
+    return Text(
+      _apiResponse.data!.overview,
+      style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w300,
         fontSize: 13,
@@ -260,7 +262,14 @@ class _DetailPageState extends State<DetailPage> {
       crossAxisCount: 2,
       mainAxisSpacing: 15,
       crossAxisSpacing: 15,
-      children: populateMovies(_apiResponseSimilar.data),
+      children: populateMovies(_apiResponseSimilar.data).isEmpty
+          ? [
+              Text(
+                "No Similar Movies for ${_apiResponse.data!.title}",
+                style: const TextStyle(color: Colors.white, fontSize: 10),
+              )
+            ]
+          : populateMovies(_apiResponseSimilar.data),
     );
   }
 
@@ -268,29 +277,33 @@ class _DetailPageState extends State<DetailPage> {
 
   List<Widget> populateMovies(List<Movie>? movies) {
     List<Widget> tmp = [];
-    for (var movie in movies!) {
-      tmp.add(
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: (() {
-              Navigator.of(context).pushNamed(
-                DetailPage.routeName,
-                arguments: DetailPage(movieId: movie.id),
-              );
-            }),
-            child: MovieCard(
-              poster: movie.poster_path,
-              isSmall: true,
-              movieRelease: movie.release_date,
-              movieName: movie.original_title,
-              voteAverage: movie.vote_average,
+    var mv = movies;
+    if (mv != null) {
+      for (var movie in movies!) {
+        tmp.add(
+          StaggeredGridTile.count(
+            crossAxisCellCount: 1,
+            mainAxisCellCount: 1,
+            child: GestureDetector(
+              onTap: (() {
+                Navigator.of(context).pushNamed(
+                  DetailPage.routeName,
+                  arguments: DetailPage(movieId: movie.id),
+                );
+              }),
+              child: MovieCard(
+                poster: movie.poster_path,
+                isSmall: true,
+                movieRelease: movie.release_date,
+                movieName: movie.original_title,
+                voteAverage: movie.vote_average,
+              ),
             ),
           ),
-        ),
-      );
+        );
+      }
     }
+
     return tmp;
   }
 }
