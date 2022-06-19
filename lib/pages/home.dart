@@ -1,5 +1,6 @@
 import 'package:film_fan/models/ApiResponse.dart';
 import 'package:film_fan/models/Movie.dart';
+import 'package:film_fan/pages/detailPage.dart';
 import 'package:film_fan/services/MovieService.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
@@ -134,13 +135,16 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisCellCount: 1,
           child: GestureDetector(
             onTap: (() {
-              print(movie.id);
+              Navigator.of(context).pushNamed(
+                DetailPage.routeName,
+                arguments: DetailPage(movieId: movie.id),
+              );
             }),
             child: MovieCard(
               poster: movie.poster_path,
               isSmall: true,
               movieRelease: movie.release_date,
-              movieName: movie.original_title,
+              movieName: movie.title,
               voteAverage: movie.vote_average,
             ),
           ),
