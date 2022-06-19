@@ -24,6 +24,7 @@ class _DetailPageState extends State<DetailPage> {
   String todaysDate = DateFormat().add_yMMMMEEEEd().format(DateTime.now());
   MovieServices services = new MovieServices();
   late APIResponse<MovieDetail> _apiResponse;
+  late APIResponse<List<Movie>> _apiResponseSimilar;
   bool _isLoading = false;
 
   @override
@@ -37,7 +38,7 @@ class _DetailPageState extends State<DetailPage> {
       _isLoading = true;
     });
     _apiResponse = await services.getMovieDetail(widget.movieId);
-    print(_apiResponse.data!.genres[1].name.toString());
+    _apiResponseSimilar = await services.getSimilar(widget.movieId);
     setState(() {
       _isLoading = false;
     });
@@ -82,7 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  buildGrid(),
+                  buildMoviePoster(),
                   const SizedBox(
                     height: 20,
                   ),
@@ -96,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   _detailBody(),
                   const SizedBox(
-                    height: 15,
+                    height: 25,
                   ),
                   const Text(
                     "Genres",
@@ -143,6 +144,22 @@ class _DetailPageState extends State<DetailPage> {
                     height: 0.3,
                     color: Colors.grey,
                   ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const Text(
+                    "Similar Movies",
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  buildGrid(),
                 ],
               ),
             ),
@@ -213,7 +230,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  StaggeredGrid buildGrid() {
+  StaggeredGrid buildMoviePoster() {
     return StaggeredGrid.count(
       crossAxisCount: 2,
       mainAxisSpacing: 15,
@@ -238,6 +255,15 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
+  StaggeredGrid buildGrid() {
+    return StaggeredGrid.count(
+      crossAxisCount: 2,
+      mainAxisSpacing: 15,
+      crossAxisSpacing: 15,
+      children: populateMovies(_apiResponseSimilar.data),
+    );
+  }
+
   // implement populating data in the list
 
   List<Widget> populateMovies(List<Movie>? movies) {
@@ -249,7 +275,10 @@ class _DetailPageState extends State<DetailPage> {
           mainAxisCellCount: 1,
           child: GestureDetector(
             onTap: (() {
-              print(movie.id);
+              Navigator.of(context).pushNamed(
+                DetailPage.routeName,
+                arguments: DetailPage(movieId: movie.id),
+              );
             }),
             child: MovieCard(
               poster: movie.poster_path,
