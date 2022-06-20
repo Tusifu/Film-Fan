@@ -218,7 +218,7 @@ class _DetailPageState extends State<DetailPage> {
                   print(result);
                   if (result == 1) {
                     setState(() {});
-                    const message = 'Favorite Added Successfully';
+                    const message = 'Favorite Removed Successfully';
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
