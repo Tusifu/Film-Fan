@@ -54,6 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 18,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite_sharp),
+            onPressed: () {
+              Navigator.pushNamed(context, '/favorites');
+            },
+          ),
+        ],
       ),
       extendBody: true,
       body: Builder(builder: (context) {
