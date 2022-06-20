@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   static bool isDarkMode = true;
 
-  static Color get primaryColor => Colors.pink[400]!;
-  static MaterialColor get primarySwatch => Colors.pink;
+  static Color get primaryColor => Colors.white;
+  static MaterialColor get primarySwatch => Colors.indigo;
   static Color get accentColor => isDarkMode ? primaryColor : Colors.grey[600]!;
   static Color get bgColor => isDarkMode ? Colors.black : Colors.grey[50]!;
 
@@ -42,38 +42,4 @@ class AppColors {
           backgroundColor: Colors.transparent,
         ),
       );
-
-  static LinearGradient getLinearGradient(MaterialColor color) {
-    return LinearGradient(
-      begin: Alignment.bottomLeft,
-      end: Alignment.topRight,
-      colors: [
-        color[300]!,
-        color[200]!,
-        color[100]!,
-      ],
-      stops: const [
-        0.4,
-        0.7,
-        0.9,
-      ],
-    );
-  }
-
-  static LinearGradient getDarkLinearGradient(MaterialColor color) {
-    return LinearGradient(
-      begin: Alignment.bottomLeft,
-      end: Alignment.topRight,
-      colors: [
-        color[400]!,
-        color[300]!,
-        color[200]!,
-      ],
-      stops: const [
-        0.4,
-        0.6,
-        1,
-      ],
-    );
-  }
 }

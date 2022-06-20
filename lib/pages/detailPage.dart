@@ -4,6 +4,7 @@ import 'package:film_fan/models/MovieDetail.dart';
 import 'package:film_fan/services/MovieService.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:film_fan/widgets/MovieCard.dart';
@@ -26,6 +27,7 @@ class _DetailPageState extends State<DetailPage> {
   late APIResponse<MovieDetail> _apiResponse;
   late APIResponse<List<Movie>> _apiResponseSimilar;
   bool _isLoading = false;
+  double rating = 0.0;
 
   @override
   void initState() {
@@ -100,6 +102,23 @@ class _DetailPageState extends State<DetailPage> {
                     height: 10,
                   ),
                   _versionReleaseSection(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Rate This Movie:",
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                      buildRating(),
+                    ],
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -195,6 +214,30 @@ class _DetailPageState extends State<DetailPage> {
       ],
     );
   }
+
+  Widget buildRating() => RatingBar.builder(
+        unratedColor: Colors.grey,
+        initialRating: rating,
+        minRating: 1,
+        itemSize: MediaQuery.of(context).size.height * 0.03,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 2),
+        itemBuilder: (context, _) => const Icon(
+          Icons.star,
+          color: Colors.amber,
+        ),
+        onRatingUpdate: (rating) async {
+          setState(
+            () {
+              print(rating);
+              this.rating = rating;
+            },
+          );
+
+          // call rate movie service to rate movie, pass the movie id and rating value
+          var res = await services.rateMovie(widget.movieId, rating);
+          print(res.error);
+        },
+      );
 
   Row _versionReleaseSection() {
     return Row(
