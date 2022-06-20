@@ -34,7 +34,8 @@
     - detail page has movie genres
     - detail page has a list of similar movies if none , text 'no similar movie is displayed' 
 
-3. Favourites page
+3. Favourites page (favorites are saved on local storage of the device
+    and it used sqlflite 3rd party for managing local storage)
     
     
 
