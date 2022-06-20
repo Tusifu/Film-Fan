@@ -75,7 +75,17 @@ class MovieCard extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
+        // Positioned(
+        //   right: 1,
+        //   bottom: 15,
+        //   child: IconButton(
+        //       onPressed: () {},
+        //       icon: const Icon(
+        //         Icons.favorite,
+        //         color: Colors.red,
+        //       )),
+        // ),
       ],
     );
   }

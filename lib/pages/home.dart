@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        // centerTitle: true,
         title: const Text(
           'FILM FAN',
           maxLines: 1,
@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
+            tooltip: 'Favourites',
             icon: const Icon(Icons.favorite_sharp),
             onPressed: () {
               Navigator.pushNamed(context, '/favorites');

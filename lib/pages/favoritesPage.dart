@@ -58,10 +58,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
           );
         }
 
-        if (favorites.length == 0) {
+        if (favorites.isEmpty) {
           return const Center(
-            child: Text('No Favorites'),
-          );
+              child: Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Text(
+                ' \t \t \t \t \t \t \t \t \t \t \t \t \t \t No Favourites \n \n(navigate to movie detail to add it to favourite)',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+          ));
         }
         return _buildBody();
       }),

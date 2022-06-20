@@ -55,7 +55,6 @@ class _DetailPageState extends State<DetailPage> {
     // var res = await FavoritesDatabase.instance.deleteTable();
     // print(res);
     favorites = await FavoritesDatabase.instance.readAllFavorites();
-    print(favorites[0].movieId);
 
     var infav = _inFavorites(widget.movieId.toString());
     print(infav);
@@ -79,6 +78,7 @@ class _DetailPageState extends State<DetailPage> {
 
   bool _inFavorites(String movieId) {
     List inFav = [];
+    // ignore: unnecessary_null_comparison
     if (favorites != null) {
       for (int i = 0; i < favorites.length; i++) {
         // ignore: unrelated_type_equality_checks
@@ -89,69 +89,7 @@ class _DetailPageState extends State<DetailPage> {
     } else {
       print('favs are null');
     }
-    return inFav.length > 0 ? true : false;
-  }
-
-  Widget FavoriteIcon() {
-    //*******  SHOW FAVORITE ICON ********* */
-
-    return FutureBuilder(
-      future:
-          FavoritesDatabase.instance.findByDbMovieId(widget.movieId.toString()),
-      builder: (context, snapshot) {
-        Color iconColor = Colors.white;
-        IconData iconShape = Icons.favorite_border;
-        if (snapshot.hasData != null) {
-          iconColor = Colors.red;
-          iconShape = Icons.favorite;
-        }
-        return IconButton(
-          color: iconColor,
-          icon: Icon(iconShape),
-          iconSize: 25,
-          onPressed: () async {
-            if (snapshot.hasData != null) {
-              // implement delete
-              final result = await FavoritesDatabase.instance
-                  .delete(widget.movieId.toString());
-              if (result == 1) {
-                const message = 'Favorite Removed Successfully';
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(message),
-                  ),
-                );
-                setState(() {});
-              } else {
-                const message = 'An error while removing favorite';
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(message),
-                  ),
-                );
-              }
-            } else {
-              // implement add
-              await addFavorite(
-                widget.movieId.toString(),
-                _apiResponse.data?.vote_average.toString(),
-                _apiResponse.data?.poster_path,
-                _apiResponse.data?.release_date,
-                _apiResponse.data?.title,
-              );
-              setState(() {});
-              const message = 'Favorite Added Successfully';
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(message),
-                ),
-              );
-            }
-          },
-        );
-      },
-    );
+    return inFav.isNotEmpty ? true : false;
   }
 
   Future<int> addFavorite(String? movieId, String? vote_average,
