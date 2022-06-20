@@ -1,6 +1,8 @@
 import 'package:film_fan/models/ApiResponse.dart';
+import 'package:film_fan/models/Favorite.dart';
 import 'package:film_fan/models/Movie.dart';
 import 'package:film_fan/models/MovieDetail.dart';
+import 'package:film_fan/services/FavoriteService.dart';
 import 'package:film_fan/services/MovieService.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class _DetailPageState extends State<DetailPage> {
   MovieServices services = MovieServices();
   late APIResponse<MovieDetail> _apiResponse;
   late APIResponse<List<Movie>> _apiResponseSimilar;
+  List<Favorite> favorites = [];
   bool _isLoading = false;
   double rating = 0.0;
 
@@ -33,6 +36,7 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     super.initState();
     getMovieDetail();
+    getAllFavorites();
   }
 
   getMovieDetail() async {
@@ -44,6 +48,124 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future getAllFavorites() async {
+    // setState(() => isLoading = true);
+    // var res = await FavoritesDatabase.instance.deleteTable();
+    // print(res);
+    favorites = await FavoritesDatabase.instance.readAllFavorites();
+    print(favorites[0].movieId);
+
+    var infav = _inFavorites(widget.movieId.toString());
+    print(infav);
+
+    // setState(() => isLoading = false);
+  }
+
+  Icon _buildFavorites(List<dynamic> favorites, String movieId) {
+    if (!_inFavorites(movieId)) {
+      return const Icon(
+        Icons.favorite_border,
+        color: Colors.white,
+      );
+    } else {
+      return const Icon(
+        Icons.favorite,
+        color: Colors.red,
+      );
+    }
+  }
+
+  bool _inFavorites(String movieId) {
+    List inFav = [];
+    if (favorites != null) {
+      for (int i = 0; i < favorites.length; i++) {
+        // ignore: unrelated_type_equality_checks
+        if (favorites[i].movieId == movieId) {
+          inFav.add(favorites[i]);
+        }
+      }
+    } else {
+      print('favs are null');
+    }
+    return inFav.length > 0 ? true : false;
+  }
+
+  Widget FavoriteIcon() {
+    //*******  SHOW FAVORITE ICON ********* */
+
+    return FutureBuilder(
+      future:
+          FavoritesDatabase.instance.findByDbMovieId(widget.movieId.toString()),
+      builder: (context, snapshot) {
+        Color iconColor = Colors.white;
+        IconData iconShape = Icons.favorite_border;
+        if (snapshot.hasData != null) {
+          iconColor = Colors.red;
+          iconShape = Icons.favorite;
+        }
+        return IconButton(
+          color: iconColor,
+          icon: Icon(iconShape),
+          iconSize: 25,
+          onPressed: () async {
+            if (snapshot.hasData != null) {
+              // implement delete
+              final result = await FavoritesDatabase.instance
+                  .delete(widget.movieId.toString());
+              if (result == 1) {
+                const message = 'Favorite Removed Successfully';
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(message),
+                  ),
+                );
+                setState(() {});
+              } else {
+                const message = 'An error while removing favorite';
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(message),
+                  ),
+                );
+              }
+            } else {
+              // implement add
+              await addFavorite(
+                widget.movieId.toString(),
+                _apiResponse.data?.vote_average.toString(),
+                _apiResponse.data?.poster_path,
+                _apiResponse.data?.release_date,
+                _apiResponse.data?.title,
+              );
+              setState(() {});
+              const message = 'Favorite Added Successfully';
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(message),
+                ),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Future<int> addFavorite(String? movieId, String? vote_average,
+      String? poster_path, String? release_date, String? title) async {
+    final favorite = Favorite(
+      title: title,
+      vote_average: vote_average,
+      poster_path: poster_path,
+      movieId: movieId,
+      release_date: release_date,
+    );
+    final result = await FavoritesDatabase.instance.create(favorite);
+    print(result);
+    return result;
   }
 
   @override
@@ -60,6 +182,65 @@ class _DetailPageState extends State<DetailPage> {
             fontSize: 18,
           ),
         ),
+        actions: [
+          //*******  SHOW FAVORITE ICON ********* */
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0, top: 5.0),
+            child: GestureDetector(
+              onTap: () async {
+                //check if for each data if its uuid
+                // is in list of SQL db favorited
+                //(uuid field).
+                if (!_inFavorites(widget.movieId.toString())) {
+                  await addFavorite(
+                    widget.movieId.toString(),
+                    _apiResponse.data?.vote_average.toString(),
+                    _apiResponse.data?.poster_path,
+                    _apiResponse.data?.release_date,
+                    _apiResponse.data?.title,
+                  );
+                  ;
+
+                  getAllFavorites();
+
+                  setState(() {});
+                  const message = 'Favorite Added Successfully';
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(message),
+                    ),
+                  );
+                } else {
+                  final result = await FavoritesDatabase.instance
+                      .delete(widget.movieId.toString());
+
+                  print(result);
+                  if (result == 1) {
+                    setState(() {});
+                    const message = 'Favorite Added Successfully';
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(message),
+                      ),
+                    );
+                    getAllFavorites();
+                  } else {
+                    const message = 'An error while removing favorite';
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(message),
+                      ),
+                    );
+                  }
+                }
+              },
+              child: _buildFavorites(favorites, widget.movieId.toString()),
+            ),
+          )
+        ],
       ),
       extendBody: true,
       body: Builder(builder: (context) {
