@@ -19,10 +19,10 @@ Film Fan is a new startup based in Kigali. Their vision is to become the single 
 
 1. On Movie detail page rating movie not working due api service which returns , not authenticate since everything is ok. (may be API provider issue)
 
-2. Every image poster doesn't fix exactly in the card I built.
+2. Every image poster doesn't fit exactly in the card I built.
 
 
-## Navigation throuth pages
+## Navigation through pages
  
 1. First page in home page which list all playing movies
     - list all playing movies
