@@ -24,8 +24,10 @@
 ## Navigation through pages
  
 1. First page in home page which list all playing movies
-    - list all playing movies
-    - button to list movies in favorites
+    - List all playing movies
+    - Heart Icon Button to list movies in favorites.
+
+    
 2. when you click on one you open the detail page of selected movies
     - add to favorites page and remove  if it was already in favorites
     - detail page has movie basic information
