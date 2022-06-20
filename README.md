@@ -11,7 +11,7 @@
 2. Clone the project.
 3. run: flutter clean
 4. run: flutter pub get
-5. recommended start the app in Debug mode. 
+5. run: flutter run
 
 
 ## Known Issues
