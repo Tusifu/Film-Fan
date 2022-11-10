@@ -4,6 +4,7 @@ import 'package:film_fan/models/Movie.dart';
 import 'package:film_fan/models/MovieDetail.dart';
 import 'package:film_fan/services/FavoriteService.dart';
 import 'package:film_fan/services/MovieService.dart';
+import 'package:film_fan/widgets/BottomBar.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -178,6 +179,10 @@ class _DetailPageState extends State<DetailPage> {
             ),
           )
         ],
+      ),
+      // ignore: prefer_const_constructors
+      bottomNavigationBar: BottomBar(
+        currentSelected: 0,
       ),
       extendBody: true,
       body: Builder(builder: (context) {

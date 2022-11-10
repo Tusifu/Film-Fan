@@ -2,6 +2,7 @@ import 'package:film_fan/models/ApiResponse.dart';
 import 'package:film_fan/models/Movie.dart';
 import 'package:film_fan/pages/detailPage.dart';
 import 'package:film_fan/services/MovieService.dart';
+import 'package:film_fan/widgets/BottomBar.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // centerTitle: true,
+        centerTitle: true,
         title: const Text(
           'FILM FAN',
           maxLines: 1,
@@ -54,15 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 18,
           ),
         ),
-        actions: [
-          IconButton(
-            tooltip: 'Favourites',
-            icon: const Icon(Icons.favorite_sharp),
-            onPressed: () {
-              Navigator.pushNamed(context, '/favorites');
-            },
-          ),
-        ],
+      ),
+      // ignore: prefer_const_constructors
+      bottomNavigationBar: BottomBar(
+        currentSelected: 0,
       ),
       extendBody: true,
       body: Builder(builder: (context) {

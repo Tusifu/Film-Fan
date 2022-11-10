@@ -2,6 +2,7 @@ import 'package:film_fan/models/Favorite.dart';
 import 'package:film_fan/pages/detailPage.dart';
 import 'package:film_fan/services/FavoriteService.dart';
 import 'package:film_fan/services/MovieService.dart';
+import 'package:film_fan/widgets/BottomBar.dart';
 import 'package:film_fan/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -48,6 +49,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
             fontSize: 18,
           ),
         ),
+      ),
+      // ignore: prefer_const_constructors
+      bottomNavigationBar: BottomBar(
+        currentSelected: 1,
       ),
       extendBody: true,
       body: Builder(builder: (context) {

@@ -28,7 +28,7 @@ class _NLoaderState extends State<NLoader> with SingleTickerProviderStateMixin {
     super.initState();
 
     _fadeTransition = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
+        vsync: this, duration: const Duration(milliseconds: 2000));
     opacityAnimation = Tween<double>(begin: 0.2, end: 1).animate(
         CurvedAnimation(parent: _fadeTransition, curve: Curves.bounceIn));
     _fadeTransition.forward();
@@ -37,16 +37,12 @@ class _NLoaderState extends State<NLoader> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: opacityAnimation as Animation<double>,
-      child: Container(
-//        height: 300,
-        decoration: BoxDecoration(
-//          color: Colors.grey,
-            ),
-        width: double.infinity,
-        child: Column(
-          children: makePlaceHolderServices(),
+    return const Center(
+      child: SizedBox(
+        height: 35,
+        width: 35,
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         ),
       ),
     );

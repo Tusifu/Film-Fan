@@ -9,14 +9,21 @@
 
 1. Checkout to master branch
 2. Clone the project.
-3. run: flutter clean
-4. run: flutter pub get
-5. run: flutter run
+3. Create .env file in the root directory add env content, that file
+    will be attached to an email of git repo link and .env as well.
+
+4. run: flutter clean
+5. run: flutter pub get
+6. run: flutter run
 
 
-## Known Issues
+## Notes
 
-1. On Movie detail page rating movie not working due api service which returns , not authenticate since everything is ok. (may be API provider issue)
+1. On Movie detail page rating movie requires to be having a guest session id
+    as the documentation suggests, to this session id you have to 
+    request a service which generate new token. 
+    ref link: https://developers.themoviedb.org/3/authentication/create-guest-session
+    more info : https://developers.themoviedb.org/3/authentication/how-do-i-generate-a-session-id
 
 2. Every image poster doesn't fit exactly in the card I built.
 

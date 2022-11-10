@@ -4,14 +4,15 @@ import 'package:film_fan/models/ApiResponse.dart';
 import 'package:film_fan/models/Movie.dart';
 import 'package:film_fan/models/MovieDetail.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MovieServices {
   // Constants
-  String baseURL = 'https://api.themoviedb.org/3/movie';
-  String apiKeyValue = 'd233e5fad5d2f4377e066ff36ed709f2';
-  int page = 1;
-  String guestSessionIdValue = '5ae5c47152f0b01f0db1dd4a02ef3422';
+  String baseURL = dotenv.get('BASE_URL');
+  String apiKeyValue = dotenv.get('API_KEY');
+  String guestSessionIdValue = dotenv.get('GUEST_SESSION_ID');
   String languageValue = 'en-US';
+  int page = 1;
 
   // Service to List all playing movies
   Future<APIResponse<List<Movie>>> getPlayingMovies() {
