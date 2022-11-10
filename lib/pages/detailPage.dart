@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:film_fan/models/ApiResponse.dart';
 import 'package:film_fan/models/Favorite.dart';
 import 'package:film_fan/models/Movie.dart';
@@ -264,7 +265,7 @@ class _DetailPageState extends State<DetailPage> {
                               showRating();
                             },
                             child: const Text(
-                              "Rate Movie",
+                              "Rate Movie   🌟",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -453,9 +454,10 @@ class _DetailPageState extends State<DetailPage> {
                 color: Colors.grey[500],
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                    image: NetworkImage(
-                        "https://image.tmdb.org/t/p/w500/${_apiResponse.data!.poster_path}"),
-                    fit: BoxFit.cover),
+                  image: CachedNetworkImageProvider(
+                      "https://image.tmdb.org/t/p/w500/${_apiResponse.data!.poster_path}"),
+                  fit: BoxFit.cover,
+                ),
               ),
               child: Container()),
         )

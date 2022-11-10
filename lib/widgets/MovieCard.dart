@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
@@ -20,15 +21,18 @@ class MovieCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
-                    image:
-                        NetworkImage("https://image.tmdb.org/t/p/w500$poster"),
-                    fit: BoxFit.cover)),
-            child: Container()),
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.grey[500],
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(
+                image: CachedNetworkImageProvider(
+                  "https://image.tmdb.org/t/p/w500$poster",
+                ),
+                fit: BoxFit.fill),
+          ),
+          child: Container(),
+        ),
         Positioned(
           bottom: 0.0,
           child: Container(
