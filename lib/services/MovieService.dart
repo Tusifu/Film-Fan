@@ -39,7 +39,7 @@ class MovieServices {
         return APIResponse<List<Movie>>(data: movies);
       } else {
         return APIResponse<List<Movie>>(
-            error: true, errorMessage: 'an Error Occured');
+            error: true, errorMessage: response.data['status_message']);
       }
     }).catchError((error) {
       return APIResponse<List<Movie>>(
@@ -64,7 +64,7 @@ class MovieServices {
         return APIResponse<MovieDetail>(data: detail);
       } else {
         return APIResponse<MovieDetail>(
-            error: true, errorMessage: 'an Error Occured');
+            error: true, errorMessage: response.data['status_message']);
       }
     }).catchError((error) {
       return APIResponse<MovieDetail>(
@@ -92,7 +92,7 @@ class MovieServices {
         return APIResponse<List<Movie>>(data: movies);
       } else {
         return APIResponse<List<Movie>>(
-            error: true, errorMessage: 'an Error Occured');
+            error: true, errorMessage: response.data['status_message']);
       }
     }).catchError((error) {
       return APIResponse<List<Movie>>(
@@ -112,11 +112,11 @@ class MovieServices {
         'guest_session_id': guestSessionIdValue,
       },
     ).then((response) {
-      if (response.statusCode == 200) {
-        final jsonData = response.data;
-        return APIResponse(data: 'success');
+      if (response.statusCode == 201) {
+        return APIResponse(data: response.data['status_message']);
       } else {
-        return APIResponse(error: true, errorMessage: 'an Error Occured');
+        return APIResponse(
+            error: true, errorMessage: response.data['status_message']);
       }
     }).catchError((error) {
       return APIResponse(error: true, errorMessage: "an error occured");

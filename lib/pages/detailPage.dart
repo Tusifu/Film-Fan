@@ -142,11 +142,18 @@ class _DetailPageState extends State<DetailPage> {
                   getAllFavorites();
 
                   setState(() {});
-                  const message = 'Favorite Added Successfully';
+                  var message =
+                      '${_apiResponse.data?.title} added to Favorites successfully';
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(message),
+                    SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   );
                 } else {
@@ -156,11 +163,18 @@ class _DetailPageState extends State<DetailPage> {
                   print(result);
                   if (result == 1) {
                     setState(() {});
-                    const message = 'Favorite Removed Successfully';
+                    var message =
+                        '${_apiResponse.data?.title} removed to favorites successfully';
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(message),
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          message,
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     );
                     getAllFavorites();
@@ -239,7 +253,25 @@ class _DetailPageState extends State<DetailPage> {
                           fontSize: 12,
                         ),
                       ),
-                      buildRating(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ButtonTheme(
+                          buttonColor: Colors.grey,
+                          minWidth: 200.0,
+                          height: 22.0,
+                          child: RaisedButton(
+                            onPressed: () {
+                              showRating();
+                            },
+                            child: const Text(
+                              "Rate Movie",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -480,4 +512,82 @@ class _DetailPageState extends State<DetailPage> {
 
     return tmp;
   }
+
+  void showRating() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 55, 53, 53),
+          title: const Text(
+            'Rate this movie',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+            ),
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Please leave a star rating.',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 22,
+              ),
+              buildRating(),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                setState(
+                  () {
+                    this.rating = rating;
+                  },
+                );
+
+                // call rate movie service to rate movie, pass the movie id and rating value
+                var res = await services.rateMovie(widget.movieId, rating);
+
+                if (res.error == true) {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: const Color.fromARGB(255, 215, 79, 69),
+                      content: Text(
+                        res.errorMessage,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text("Movie Rated Successfully 😇 😇",
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                    ),
+                  );
+                }
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
