@@ -1,19 +1,31 @@
-import 'dart:convert';
+// ignore_for_file: file_names
 
 import 'package:film_fan/models/ApiResponse.dart';
 import 'package:film_fan/models/Movie.dart';
 import 'package:film_fan/models/MovieDetail.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class MovieServices {
-  String apiKey = 'd233e5fad5d2f4377e066ff36ed709f2';
+  // Constants
+  String baseURL = 'https://api.themoviedb.org/3/movie';
+  String apiKeyValue = 'd233e5fad5d2f4377e066ff36ed709f2';
+  int page = 1;
+  String guestSessionIdValue = '5ae5c47152f0b01f0db1dd4a02ef3422';
+  String languageValue = 'en-US';
+
   // Service to List all playing movies
   Future<APIResponse<List<Movie>>> getPlayingMovies() {
-    var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
-    return http.get(url).then((data) {
-      if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+    var url = '$baseURL/now_playing';
+    return Dio().get(
+      url,
+      queryParameters: {
+        'api_key': apiKeyValue,
+        'language': languageValue,
+        'page': page,
+      },
+    ).then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = response.data;
         final movies = <Movie>[];
         for (var item in jsonData['results']) {
           movies.add(Movie.fromJson(item));
@@ -37,11 +49,16 @@ class MovieServices {
   // Service to get the detail of movie
 
   Future<APIResponse<MovieDetail>> getMovieDetail(int movieId) {
-    var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/$movieId?api_key=$apiKey&language=en-US');
-    return http.get(url).then((data) {
-      if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+    var url = '$baseURL/$movieId';
+    return Dio().get(
+      url,
+      queryParameters: {
+        'api_key': apiKeyValue,
+        'language': languageValue,
+      },
+    ).then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = response.data;
         MovieDetail detail = MovieDetail.fromJson(jsonData);
         return APIResponse<MovieDetail>(data: detail);
       } else {
@@ -49,7 +66,6 @@ class MovieServices {
             error: true, errorMessage: 'an Error Occured');
       }
     }).catchError((error) {
-      print(error);
       return APIResponse<MovieDetail>(
           error: true, errorMessage: "an error occured");
     });
@@ -57,11 +73,17 @@ class MovieServices {
 
   // Service to get similar movies of the passed id
   Future<APIResponse<List<Movie>>> getSimilar(int movieId) {
-    var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/$movieId/similar?api_key=$apiKey&language=en-US&page=1');
-    return http.get(url).then((data) {
-      if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+    var url = '$baseURL/$movieId/similar';
+    return Dio().get(
+      url,
+      queryParameters: {
+        'api_key': apiKeyValue,
+        'language': languageValue,
+        'page': page,
+      },
+    ).then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = response.data;
         final movies = <Movie>[];
         for (var item in jsonData['results']) {
           movies.add(Movie.fromJson(item));
@@ -72,7 +94,6 @@ class MovieServices {
             error: true, errorMessage: 'an Error Occured');
       }
     }).catchError((error) {
-      print(error);
       return APIResponse<List<Movie>>(
           error: true, errorMessage: "an error occured");
     });
@@ -80,20 +101,23 @@ class MovieServices {
 
 // Functiion to rate movie
   Future<APIResponse> rateMovie(int movieId, value) {
-    var url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/$movieId/rating?api_key=$apiKey');
+    var url = '$baseURL/$movieId/rating';
     var body = {'value': value};
-    return http.post(url, body: json.encode(body)).then((data) {
-      print(data.statusCode);
-      print(data.body);
-      if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+    return Dio().post(
+      url,
+      data: body,
+      queryParameters: {
+        'api_key': apiKeyValue,
+        'guest_session_id': guestSessionIdValue,
+      },
+    ).then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = response.data;
         return APIResponse(data: 'success');
       } else {
         return APIResponse(error: true, errorMessage: 'an Error Occured');
       }
     }).catchError((error) {
-      print(error);
       return APIResponse(error: true, errorMessage: "an error occured");
     });
   }

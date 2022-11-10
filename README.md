@@ -7,7 +7,7 @@
 
 ## Get Started
 
-1. Checkout to master branc
+1. Checkout to master branch
 2. Clone the project.
 3. run: flutter clean
 4. run: flutter pub get

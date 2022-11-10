@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:film_fan/models/Genres.dart';
 import 'package:film_fan/models/ProductionCompanies.dart';
 import 'package:film_fan/models/ProductionCountry.dart';

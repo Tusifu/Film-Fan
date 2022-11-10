@@ -33,12 +33,12 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.1
   flutter_svg: ^1.0.3
   sizer: ^2.0.15
-  rename: ^2.0.1
   intl: ^0.17.0
   json_serializable: ^6.2.0
-  http: ^0.13.4
   flutter_rating_bar: ^4.0.0
   sqflite: ^2.0.2+1
+  dio: ^4.0.6
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_lints: ^1.0.0

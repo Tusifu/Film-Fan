@@ -137,7 +137,6 @@ class _DetailPageState extends State<DetailPage> {
                     _apiResponse.data?.release_date,
                     _apiResponse.data?.title,
                   );
-                  ;
 
                   getAllFavorites();
 
